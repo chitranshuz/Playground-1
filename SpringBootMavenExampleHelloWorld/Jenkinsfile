@@ -1,0 +1,24 @@
+projectToBuild = 'SpringBootMavenExampleHelloWorld'
+
+checkout stage('------- Checkout --------') {
+([$class: 'GitSCM',
+ branches: [
+ [name: '*/master']
+  ],
+ userRemoteConfigs: [
+ [url: 'https://github.com/anjali368/Playground']
+  extensions: [
+ [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
+  [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      		[$class: 'SparseCheckoutPath', path: '/' + projectToBuild + '/']
+    	 ]]
+ ],
+ ]
+ ])
+ }
+ 
+ stage ('---------- build ---------------') {
+         
+	// for building java projects
+        rtMaven.run pom: branch + '/' + projectToBuild + '/pom.xml', goals: 'clean install', buildInfo: buildInfo
+ }
