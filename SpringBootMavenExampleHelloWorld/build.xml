@@ -1,0 +1,6 @@
+<?xml version = "1.0"?>
+<project name = "Playground-1" default = "target">
+   <target name = "target">
+      <echo>Hello World - Welcome to Apache Ant!</echo>
+   </target>
+</project>
